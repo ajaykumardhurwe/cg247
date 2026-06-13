@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  :root {
+    --primary-color: #1890ff;
+    --accent-color: #ff4d4f;
+    --bg-light: #ffffff;
+    --bg-dark: #1a1a2e;
+    --surface-light: #f5f5f5;
+    --surface-dark: #16213e;
+    --text-light: #212121;
+    --text-dark: #e0e0e0;
+    --border-light: #e0e0e0;
+    --border-dark: #2d3748;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased transition-colors duration-300;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  body.light {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+  }
+
+  body.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .card-3d {
+    @apply relative overflow-hidden rounded-xl;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
+  }
+
+  .light .card-3d {
+    @apply shadow-3d bg-white;
+  }
+
+  .dark .card-3d {
+    @apply shadow-3d-dark bg-surface-800;
+  }
+
+  .btn-3d {
+    @apply relative overflow-hidden font-medium rounded-lg px-6 py-3;
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+  }
+
+  .btn-3d:active {
+    transform: translateY(2px);
+  }
+
+  .btn-3d::after {
+    content: '';
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-3d:hover::after {
+    opacity: 1;
+  }
+
+  .floating-card {
+    @apply rounded-2xl p-4;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotateX(0);
+    }
+    50% {
+      transform: translateY(-10px) rotateX(2deg);
+    }
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .light .glass-effect {
+    @apply bg-white/80 border border-white/20;
+  }
+
+  .dark .glass-effect {
+    @apply bg-surface-900/80 border border-surface-700/20;
+  }
+
+  .tab-indicator {
+    @apply absolute bottom-0 left-0 h-1 bg-primary-500 rounded-full transition-all duration-300;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-surface-200 dark:bg-surface-700 rounded;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+}
+
+/* Angular Material overrides */
+.mat-mdc-button,.mat-mdc-raised-button, .mat-mdc-unelevated-button, .mat-mdc-outlined-button {
+  border-radius: 12px !important;
+}
+
+.mat-mdc-tab-group {
+  --mat-tab-header-label-text-tracking: normal;
+}
+
+.mdc-tab__text-label {
+  font-weight: 500 !important;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .mobile-header-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-header-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-header-title {
+    font-size: 1.75rem;
+  }
+}
